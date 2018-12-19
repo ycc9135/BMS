@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BMS.system.mapper.TBookMapper">
+
+    <!-- 开启二级缓存 -->
+    <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="BMS.system.entity.TBook">
+        <id column="book_id" property="bookId" />
+        <result column="book_name" property="bookName" />
+        <result column="storagetime" property="storagetime" />
+        <result column="state" property="state" />
+        <result column="author" property="author" />
+        <result column="publishing_house" property="publishingHouse" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        book_id as bookId, book_name as bookName, storagetime, state, author, publishing_house as publishingHouse
+    </sql>
+    
+    <!-- <select id="selectAll" resultType="TBook">
+      select <include refid="Base_Column_List"/>
+      from t_book
+    </select> -->
+    <select id="findByPage" resultType="TBook">
+		SELECT <include refid="Base_Column_List"/> FROM t_book limit #{page},#{rows}
+	</select>
+
+</mapper>

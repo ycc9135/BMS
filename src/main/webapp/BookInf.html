@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>图书管理系统</title>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/jquery.bootgrid.css">
+		<script src="js/bootstrap.js"></script>
+		<script src="js/jquery.bootgrid.js"></script>
+		<script src="js/modernizr-2.8.1.js"></script>
+		<script src="js/bookInf.js"></script>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+					<nav class="navbar navbar-inverse">
+						<div class="container-fluid">
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar">*****</span>
+						</button>
+								<a class="navbar-brand" href="#">图书管理系统</a>
+							</div>
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+								<ul class="nav navbar-nav">
+									<li>
+										<a class="navbar-brand" href="#" onclick="logout()">logout</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</nav>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2">拓展</div>
+				<div class="col-md-10">
+					<h2 style="margin-top: 0px; margin-bottom: 15px;">图书信息</h2>
+					<a class="btn btn-primary" href="/stu/exportStu">导出为Excel</a>
+					<a class="btn btn-primary" href="#" id="add">添加图书</a>
+					<table id="grid-data" class="table table-condensed table-hover table-striped">
+						<thead>
+							<tr>
+								<th data-column-id="bookId" data-identifier="true" data-type="numeric">书籍编号</th>
+								<th data-column-id="bookName">书籍名称</th>
+								<th data-column-id="storagetime">入库时间</th>
+								<th data-column-id="state">状态</th>
+								<th data-column-id="author">作者</th>
+								<th data-column-id="publishingHouse">出版日期</th>
+								<th data-column-id="commands" data-formatter="commands" data-sortable="false">操作</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade bookmodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+						<h4 class="modal-title">更新书籍信息</h4>
+					</div>
+					<form action="javascript:;" method="post">
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="bookId2">书籍编号</label> <input type="text" name="bookId" class="form-control" id="bookId2" readonly="true">
+							</div>
+							<div class="form-group">
+								<label for="bookName2">书籍名称</label> <input type="text" name="bookName" class="form-control" id="bookName2">
+							</div>
+							<div class="form-group">
+								<label for="storagetime2">入库时间</label> <input type="text" name="storagetime" class="form-control" id="storagetime2">
+							</div>
+							<div class="form-group">
+								<label for="state2">状态</label> <input type="text" name="state" class="form-control" id="state2">
+							</div>
+							<div class="form-group">
+								<label for="author2">作者</label> <input type="text" name="author" class="form-control" id="author2">
+							</div>
+							<div class="form-group">
+								<label for="publishingHouse2">出版设</label> <input type="text" name="publishingHouse" class="form-control" id="publishingHouse2">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="save()">保存</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade addmodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+						<h4 class="modal-title">添加图书信息</h4>
+					</div>
+					<form action="javascript:;" method="post">
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="bookName1">书籍名称</label> <input type="text" name="bookName" class="form-control" id="bookName1">
+							</div>
+							<div class="form-group">
+								<label for="state1">状态</label> <input type="text" name="state" class="form-control" id="state1">
+							</div>
+							<div class="form-group">
+								<label for="author1">作者</label> <input type="text" name="author" class="form-control" id="author1">
+							</div>
+							<div class="form-group">
+								<label for="publishingHouse1">出版设</label> <input type="text" name="publishingHouse" class="form-control" id="publishingHouse1">
+							</div>
+							<div class="form-group">
+								<input type="hidden" name="Id" class="form-control" id="Id">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-primary" id="button_add" onclick="add()">添加图书</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
